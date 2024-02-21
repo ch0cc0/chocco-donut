@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate  } from "react-router-dom";
+import { signup } from "../../utils";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -17,9 +21,25 @@ const Signup = () => {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password, email);
+
+    const data = {
+      username,
+      password,
+      email,
+    };
+
+    console.log(data.username);
+
+    try {
+      const response = await signup(data);
+      console.log(response);
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+    
   };
 
   return (

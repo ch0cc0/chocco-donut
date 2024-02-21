@@ -6,9 +6,9 @@ const NavBar = () => {
       <nav className="navbar">
         <div className="navbar-left">
           {/* Logo */}
-          <a href="/" className="navbar-logo">
+          <NavLink to="/" className="navbar-logo">
             Logo Here
-          </a>
+          </NavLink>
           {/* Search Bar */}
           <input
             type="text"

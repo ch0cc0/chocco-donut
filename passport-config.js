@@ -1,7 +1,6 @@
-const { use } = require('passport');
 const {compare_password} = require('./utils/helper_funcs.js');
 const LocalStrategy = require('passport-local').Strategy;
-const {getUserByUsername, getUserById} = require('./controllers');
+const {getUserByUsername, getUserById} = require('./utils/helper_funcs.js');
 
 function initialize (passport) {
     const authenticateUser = async (username, password, done) => {

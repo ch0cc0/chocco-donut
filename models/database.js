@@ -15,16 +15,8 @@ const pool = new Pool({
 const query = (text, params, callback) => {
     const queryPromise = pool.query(text, params);
 
-    if (callback) {
-        // If a callback is provided, use it
-        queryPromise.then((res) => callback(null, res)).catch(callback);
-    } else {
-        // Otherwise, return the promise
-        return queryPromise;
-    }
+    return queryPromise
 };
-
-
 
 module.exports = {
     query

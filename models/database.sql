@@ -8,7 +8,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (username),
     UNIQUE (email)
-);
+)
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
@@ -25,7 +25,7 @@ CREATE TABLE item_image (
     item_image_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (item_id) REFERENCES items(id)
-);
+)
 
 CREATE TABLE flavors (
     id SERIAL PRIMARY KEY,
