@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate  } from "react-router-dom";
 import { signup } from "../../utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,25 +23,30 @@ const Signup = () => {
     setEmail(e.target.value);
   };
 
+  const signupData = {
+    username,
+    password,
+    email,
+  };
+
+  const mutation = useMutation({
+    mutationFn: signup,
+    onSuccess: () => {
+      queryClient.invalidateQueries('myquerykey');
+      navigate('/login');
+    },
+    onError: () => {
+      queryClient.invalidateQueries('myquerykey');
+      navigate('/signup');
+    },
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      username,
-      password,
-      email,
-    };
+    console.log(signupData.username);
 
-    console.log(data.username);
-
-    try {
-      const response = await signup(data);
-      console.log(response);
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
-    }
-    
+    const data = await mutation.mutateAsync(signupData);
   };
 
   return (
@@ -73,6 +80,8 @@ const Signup = () => {
             onChange={handleEmailChange}
           />
         </div>
+        {mutation.isPending && <div>Loading...</div>}
+        {mutation.error && <div style={{ color: 'red' }}>An error has occurred!</div>}
         <button type="submit">Sign Up</button>
       </form>
     </div>

@@ -1,8 +1,25 @@
-const {compare_password} = require('./utils/helper_funcs.js');
-const LocalStrategy = require('passport-local').Strategy;
-const {getUserByUsername, getUserById} = require('./utils/helper_funcs.js');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-function initialize (passport) {
+const {compare_password, getUserByUsername, getUserById} = require('../utils/helper_funcs.js');
+
+module.exports = (app) => {
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    passport.serializeUser((user, done) => {
+        return done(null, user.id)
+    });
+
+    passport.deserializeUser(async (id, done) => {
+        try {
+            const user = await getUserById(id);
+            done(null, user);
+        } catch (e) {
+            done(e);
+        }
+    });
+
     const authenticateUser = async (username, password, done) => {
         try {
             const user = await getUserByUsername(username);
@@ -24,22 +41,7 @@ function initialize (passport) {
         }
     };
 
-    passport.use(new LocalStrategy({
-        usernameField: 'username',
-    }, authenticateUser))
+    passport.use(new LocalStrategy(authenticateUser));
 
-    passport.serializeUser((user, done) => {
-        return done(null, user.id)
-    });
-
-    passport.deserializeUser(async (id, done) => {
-        try {
-            const user = await getUserById(id);
-            done(null, user);
-        } catch (e) {
-            done(e);
-        }
-    });
+    return passport;
 }
-
-module.exports = initialize

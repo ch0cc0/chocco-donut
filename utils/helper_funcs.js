@@ -1,4 +1,4 @@
-const pool = require('../models/database.js');
+const pool = require('../db/database.js');
 
 const bcrypt = require('bcrypt');
 
@@ -29,7 +29,7 @@ const checkIfNotAuthenticated = (req, res, next) => {
 
 const getUserByUsername = async (username) => {
     try {
-        const res = await pool.query('SELECT * FROM dungeon_master WHERE username = $1' [username]);
+        const res = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
         if (res.rows.length > 0) {
             return res.rows[0];
@@ -38,13 +38,13 @@ const getUserByUsername = async (username) => {
         }
 
     } catch (error) {
-        console.error(err);
+        console.log(error);
     }
   };
   
 const getUserById = async (id) => {
     try {
-        const res = await pool.query('SELECT * FROM dungeon_master WHERE id = $1' [id]);
+        const res = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
 
         if (res.rows.length > 0) {
             return res.rows[0];
@@ -53,7 +53,7 @@ const getUserById = async (id) => {
         }
 
     } catch (error) {
-        console.error(err);
+        console.log(error);
     }
 };
 

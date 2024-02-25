@@ -1,4 +1,4 @@
-const pool = require('../models/database.js');
+const pool = require('../db/database.js');
 const { hash } = require('../utils/helper_funcs.js');
 
 const signup = async (req, res) => {
@@ -17,7 +17,8 @@ const signup = async (req, res) => {
         const result = pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3)', [username, hashedPassword, email]);
 
         console.log('User signed up successfully');
-        res.status(201).json({ message: 'User signed up successfully' });        
+        res.status(201).json({ message: 'User signed up successfully' });
+    
     } catch (err) {
         console.error('Error signing up:', err); // Logging the error
         return res.status(500).json({ message: 'An error occurred while signing up' });

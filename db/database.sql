@@ -1,6 +1,6 @@
 CREATE DATABASE chocco_donuts_db;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE users (
     UNIQUE (email)
 )
 
-CREATE TABLE items (
+CREATE TABLE IF NOT EXISTS items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE items (
     UNIQUE (name)
 );
 
-CREATE TABLE item_image (
+CREATE TABLE IF NOT EXISTS item_image (
     id SERIAL PRIMARY KEY,
     item_id INTEGER NOT NULL,
     item_image_url TEXT,
@@ -27,14 +27,14 @@ CREATE TABLE item_image (
     FOREIGN KEY (item_id) REFERENCES items(id)
 )
 
-CREATE TABLE flavors (
+CREATE TABLE IF NOT EXISTS flavors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (name)
 );
 
-CREATE TABLE item_flavors (
+CREATE TABLE IF NOT EXISTS item_flavors (
     item_id INTEGER NOT NULL,
     flavor_id INTEGER NOT NULL,
     PRIMARY KEY (item_id, flavor_id),
@@ -42,7 +42,7 @@ CREATE TABLE item_flavors (
     FOREIGN KEY (flavor_id) REFERENCES flavors(id)
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
     total_cost DECIMAL(10, 2) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE orders (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE orders_items (
+CREATE TABLE IF NOT EXISTS orders_items (
     id SERIAL PRIMARY KEY,
     order_id INTEGER NOT NULL,
     item_id INTEGER NOT NULL,
@@ -60,14 +60,14 @@ CREATE TABLE orders_items (
     FOREIGN KEY (item_id) REFERENCES items(id)
 );
 
-CREATE TABLE carts (
+CREATE TABLE IF NOT EXISTS carts (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE carts_items (
+CREATE TABLE IF NOT EXISTS carts_items (
     id SERIAL PRIMARY KEY,
     cart_id INTEGER NOT NULL,
     item_id INTEGER NOT NULL,

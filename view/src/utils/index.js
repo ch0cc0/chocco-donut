@@ -1,21 +1,13 @@
+import axios from "axios";
+
 export const signup = async (signupData) => {
-  try {
-    const res = await fetch('http://localhost:8000/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(signupData),
-      })
+  const { data } = await axios.post('http://localhost:8000/signup', signupData);
 
-    console.log(res); 
+  return data;
+};
 
-    if (!res.ok) throw new Error('Error signing up');
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+export const login = async (loginData) => {
+  const { data } = await axios.post('http://localhost:8000/login', loginData);
+
+  return data;
 };
