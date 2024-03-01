@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./styling.css";
+import Logout from "../logout";
 
 const NavBar = () => {
+
     return (
       <nav className="navbar">
         <div className="navbar-left">
@@ -12,19 +14,22 @@ const NavBar = () => {
           {/* Search Bar */}
           <input
             type="text"
+            id="search-bar"
             placeholder="Search"
             className="navbar-search"
           />
         </div>
         <div className="navbar-right">
           {/* Login NavLink */}
-          <NavLink to="/login" className="navbar-link">
+          <NavLink to="/auth/login" className="navbar-link">
             Login
           </NavLink>
           {/* Sign Up NavLink */}
-          <NavLink to="/signup" className="navbar-link">
+          <NavLink to="/auth/signup" className="navbar-link">
             Sign Up
           </NavLink>
+          {/* Sign Out Button */}
+          <Logout />
         </div>
       </nav>
     );

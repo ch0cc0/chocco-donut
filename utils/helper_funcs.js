@@ -57,11 +57,77 @@ const getUserById = async (id) => {
     }
 };
 
+const findUserByGoogleId = async (id) => {
+    try {
+        const res = await pool.query('SELECT * FROM users WHERE google_id::text = $1', [id]);
+
+        if (res.rows.length > 0) {
+            return res.rows[0];
+        } else {
+            return null;
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+/*
+    name is an object returned from google api that contains 
+    givenName = first name and familyName = last name
+*/
+const createUserWithGoogleId = async (google_id, name) => {
+
+    const firstName = name.givenName?name.givenName:'';
+    const lastName = name.familyName?name.familyName:'';
+
+    console.log(google_id)
+
+    try {
+        await pool.query('INSERT INTO users (google_id, firstName, lastName) VALUES ($1, $2, $3)', [google_id, firstName, lastName]);
+
+        const res = await pool.query('SELECT * FROM users WHERE google_id::text = $1', [google_id]);
+        console.log('User inserted successfully:', res.rows[0]);
+
+        if (res.rows.length > 0) {
+            return res.rows[0];
+        } else {
+            return null;
+        }
+
+    } catch (error) {
+        console.error('Error inserting user:', error);
+    }
+};
+
+const googleLogin = async (profile) => {
+
+    const { id, name } = profile;
+
+    try {
+        // Check if user exists
+        const user = await findUserByGoogleId(id);
+
+        // If no user found, create new user
+        if (!user) {
+            return await createUserWithGoogleId(id, name);
+        }
+
+        // User already exists, return profile
+        return user;
+
+    } catch(err) {
+        console.log(err);
+    }
+
+};
+
 module.exports = {
     hash,
     compare_password,
     checkIfAuthenticated,
     checkIfNotAuthenticated,
     getUserByUsername,
-    getUserById
+    getUserById,
+    googleLogin,
 };

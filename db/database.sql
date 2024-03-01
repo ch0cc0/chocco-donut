@@ -2,9 +2,12 @@ CREATE DATABASE chocco_donuts_db;
 
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    email VARCHAR(255),
+    firstName VARCHAR(50),
+    lastName VARCHAR(50),
+    google_id JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (username),
     UNIQUE (email)
@@ -19,27 +22,12 @@ CREATE TABLE IF NOT EXISTS items (
     UNIQUE (name)
 );
 
-CREATE TABLE IF NOT EXISTS item_image (
+CREATE TABLE IF NOT EXISTS item_images (
     id SERIAL PRIMARY KEY,
     item_id INTEGER NOT NULL,
     item_image_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (item_id) REFERENCES items(id)
-)
-
-CREATE TABLE IF NOT EXISTS flavors (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (name)
-);
-
-CREATE TABLE IF NOT EXISTS item_flavors (
-    item_id INTEGER NOT NULL,
-    flavor_id INTEGER NOT NULL,
-    PRIMARY KEY (item_id, flavor_id),
-    FOREIGN KEY (item_id) REFERENCES items(id),
-    FOREIGN KEY (flavor_id) REFERENCES flavors(id)
 );
 
 CREATE TABLE IF NOT EXISTS orders (

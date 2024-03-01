@@ -18,7 +18,15 @@ module.exports = (app) => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cors());
+
+    app.use(cors({
+        origin: 'http://localhost:3000',
+        methods: 'GET,POST,PUT,DELETE,OPTIONS',
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true,
+        optionSuccessStatus:200,
+        preflightContinue: true,
+    }));
 
     return app;
 }

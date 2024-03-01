@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate  } from "react-router-dom";
-import { signup } from "../../utils";
+import { signup } from "../../utils/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Signup = () => {
@@ -33,11 +33,11 @@ const Signup = () => {
     mutationFn: signup,
     onSuccess: () => {
       queryClient.invalidateQueries('myquerykey');
-      navigate('/login');
+      navigate('/auth/login');
     },
     onError: () => {
       queryClient.invalidateQueries('myquerykey');
-      navigate('/signup');
+      navigate('/auth/signup');
     },
   });
 
@@ -46,7 +46,7 @@ const Signup = () => {
 
     console.log(signupData.username);
 
-    const data = await mutation.mutateAsync(signupData);
+    await mutation.mutateAsync(signupData);
   };
 
   return (
