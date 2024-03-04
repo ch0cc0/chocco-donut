@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/navbar";
-import Home from "./components/home";
-import Login from "./components/login";
-import Signup from "./components/signup";
-import NotFound from "./components/not_found";
+import NavBar from "./routes/navbar";
+import Home from "./routes/home";
+import Login from "./routes/login";
+import Signup from "./routes/signup";
+import NotFound from "./routes/not_found";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 

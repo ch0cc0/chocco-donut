@@ -1,18 +1,18 @@
 import axios from "axios";
 
-export const signup = async (signupData) => {
+export const signupAPI = async (signupData) => {
   const { data } = await axios.post('http://localhost:8000/auth/signup', signupData);
 
   return data;
 };
 
-export const login = async (loginData) => {
+export const loginAPI = async (loginData) => {
   const { data } = await axios.post('http://localhost:8000/auth/login', loginData);
 
   return data;
 };
 
-export const googleSignIn = async () => {
+export const googleSignInAPI = async () => {
   const {data} = await axios.get('http://localhost:8000/auth/google', {
     withCredentials: true,
   });
@@ -20,7 +20,7 @@ export const googleSignIn = async () => {
   return data.redirectUri;
 };
 
-export const logout = async () => {
+export const logoutAPI = async () => {
   const { data } = await axios.post('http://localhost:8000/auth/logout');
 
   return data;
