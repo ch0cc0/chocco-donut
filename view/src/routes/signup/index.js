@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate  } from "react-router-dom";
-import { signup } from "../../utils/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../../store/auth/authActions";
+
 
 const Signup = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+
+  const auth = useSelector((state) => state.auth);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,24 +32,16 @@ const Signup = () => {
     email,
   };
 
-  const mutation = useMutation({
-    mutationFn: signup,
-    onSuccess: () => {
-      queryClient.invalidateQueries('myquerykey');
-      navigate('/auth/login');
-    },
-    onError: () => {
-      queryClient.invalidateQueries('myquerykey');
-      navigate('/auth/signup');
-    },
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(signupData.username);
 
-    await mutation.mutateAsync(signupData);
+    const result = await dispatch(signupUser(signupData));
+
+    if (result.meta.requestStatus === "fulfilled") {
+      navigate('/auth/login');
+    }
   };
 
   return (
@@ -60,6 +55,7 @@ const Signup = () => {
             id="username"
             value={username}
             onChange={handleUsernameChange}
+            required
           />
         </div>
         <div>
@@ -69,6 +65,7 @@ const Signup = () => {
             id="password"
             value={password}
             onChange={handlePasswordChange}
+            required
           />
         </div>
         <div>
@@ -78,10 +75,11 @@ const Signup = () => {
             id="email"
             value={email}
             onChange={handleEmailChange}
+            required
           />
         </div>
-        {mutation.isPending && <div>Loading...</div>}
-        {mutation.error && <div style={{ color: 'red' }}>An error has occurred!</div>}
+        {auth.isLoading && <div>Loading...</div>}
+        {auth.signupError && !auth.isLoading ? <div style={{ color: 'red' }}>Error: {auth.signupError}</div> : null }
         <button type="submit">Sign Up</button>
       </form>
     </div>

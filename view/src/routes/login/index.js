@@ -1,12 +1,20 @@
-import React, { useState } from "react";
-import { login } from "../../utils/auth";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../store/auth/authActions";
 import GoogleSignUp from "../googleSignUp";
 
 const Login = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      navigate('/');
+    }
+  }, [auth.isAuthenticated]);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,32 +32,12 @@ const Login = () => {
     password,
   };
 
-  const mutation = useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-        queryClient.invalidateQueries('myquerykey');
-        console.log(`Logged in as ${data.username}`);
-        console.log(data)
-        navigate('/');
-    },
-    onError: (error) => {
-        queryClient.invalidateQueries('myquerykey');
-        console.log(error);
-        navigate('/auth/login');
-    }
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(`Attempting to Log in as ${loginData.username}`);
-    
-    try {
-      await mutation.mutateAsync(loginData);
-    } catch (error) {
-      console.log(error);
-    }
-    
+
+    dispatch(loginUser(loginData));
   };
 
   return (
@@ -65,6 +53,7 @@ const Login = () => {
                 autoComplete="username"
                 value={username}
                 onChange={handleUsernameChange}
+                required
               />
             </div>
             <div>
@@ -75,10 +64,11 @@ const Login = () => {
                 autoComplete="current-password"
                 value={password}
                 onChange={handlePasswordChange}
+                required
               />
             </div>
-            {mutation.isPending && <div>Loading...</div>}
-            {mutation.error && <div style={{ color: 'red' }}>Failed to login</div>}
+            {auth.isLoading && <div>Loading...</div>}
+            {auth.loginError && !auth.isLoading ? <div style={{ color: 'red' }}>Failed to Login! Error: {auth.loginError}</div> : null }
             <button type="submit">Log In</button>
           </form>
       </div>

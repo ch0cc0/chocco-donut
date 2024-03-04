@@ -4,7 +4,8 @@ import { loginUser, signupUser, logoutUser } from "./authActions";
 const initialState = {
     isLoading: false,
     isAuthenticated: false,
-    error: null,
+    loginError: null,
+    signupError: null,
     userData: {}
   };
 
@@ -15,45 +16,43 @@ const authSlice = createSlice({
         builder.addCase(loginUser.pending, (state) => {
             state.isLoading = true;
         })
-        builder.addCase(loginUser.fulfilled, (state, action) => {
+        .addCase(loginUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isAuthenticated = true;
-            state.error = null
+            state.loginError = null
             state.userData = action.payload
         })
-        builder.addCase(loginUser.rejected, (state, action) => {
+        .addCase(loginUser.rejected, (state, action) => {
             state.isLoading = false;
             state.isAuthenticated = false;
-            state.error = action.error.message
+            state.loginError = action.error.message
             state.userData = {}
         })
         builder.addCase(signupUser.pending, (state) => {
             state.isLoading = true;
         })
-        builder.addCase(signupUser.fulfilled, (state, action) => {
+        .addCase(signupUser.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isAuthenticated = true;
-            state.error = null
+            state.signupError = null
             state.userData = action.payload
         })
-        builder.addCase(signupUser.rejected, (state, action) => {
+        .addCase(signupUser.rejected, (state, action) => {
             state.isLoading = false;
             state.isAuthenticated = false;
-            state.error = action.error.message
+            state.signupError = action.error.message
             state.userData = {}
         })
         builder.addCase(logoutUser.pending, (state) => {
             state.isLoading = true;
         })
-        builder.addCase(logoutUser.fulfilled, (state, action) => {
+        .addCase(logoutUser.fulfilled, (state) => {
             state.isLoading = false;
             state.isAuthenticated = false;
-            state.error = null
             state.userData = {}
         })
-        builder.addCase(logoutUser.rejected, (state, action) => {
+        .addCase(logoutUser.rejected, (state) => {
             state.isLoading = false;
-            state.error = action.error.message
             state.userData = {}
         })
     }

@@ -11,7 +11,7 @@ const signup = async (req, res) => {
 
     const hashedPassword = await hash(password, 10);
 
-    console.log('hased password');
+    console.log('hashed password');
 
     try {
         const result = pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3)', [username, hashedPassword, email]);

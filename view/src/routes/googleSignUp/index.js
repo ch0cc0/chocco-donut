@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import GoogleSignIn  from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
-import { googleSignIn } from "../../utils/auth";
+import { googleSignInAPI } from "../../utils/auth";
 
 const GoogleSignUp = () => {
 
@@ -10,7 +10,7 @@ const GoogleSignUp = () => {
     const queryClient = useQueryClient();
   
     const mutation = useMutation({
-      mutationFn: googleSignIn,
+      mutationFn: googleSignInAPI,
       onSuccess: () => {
           queryClient.invalidateQueries('myquerykey');
       },
