@@ -1,14 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const ItemDisplayBox = (props) => {
+const ItemDisplayBox = () => {
 
-    const { data } = props;
+    const items = useSelector((state) => state.items);
 
     return (
         <Link to={`/donuts/${data.id}`} className='item-display-box'>
             <div>
-                <h3>{data.name}</h3>
+                <h3>{items.name}</h3>
             </div>
             <div>
                 <img src={data.url}/>

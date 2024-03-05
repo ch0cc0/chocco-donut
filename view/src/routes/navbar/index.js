@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import "./styling.css";
 import Logout from "../logout";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+
+  const auth = useSelector((state) => state.auth);
 
     return (
       <nav className="navbar">
@@ -21,15 +24,20 @@ const NavBar = () => {
         </div>
         <div className="navbar-right">
           {/* Login NavLink */}
+          { auth.isAuthenticated ? null : 
           <NavLink to="/auth/login" className="navbar-link">
             Login
-          </NavLink>
-          {/* Sign Up NavLink */}
+          </NavLink> 
+          }
+          { /* Sign Up NavLink */}
+          { auth.isAuthenticated ? null :
           <NavLink to="/auth/signup" className="navbar-link">
             Sign Up
           </NavLink>
+          }
+          
           {/* Sign Out Button */}
-          <Logout />
+          { auth.isAuthenticated ? <Logout /> : null }
         </div>
       </nav>
     );
