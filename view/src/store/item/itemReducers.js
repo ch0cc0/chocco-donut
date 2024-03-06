@@ -1,29 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getItemById, getItems } from "./itemsActions";
+import { getItemById } from "./itemActions";
 
 const initialState = {
     isLoading: false,
-    data: [],
+    data: {},
     error: null,
   };
 
-const itemsSlice = createSlice({
-    name: 'items',
+const itemSlice = createSlice({
+    name: 'item',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getItems.pending, (state) => {
-            state.isLoading = true;
-        })
-        .addCase(getItems.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.error = null;
-            state.data = action.payload;
-        })
-        .addCase(getItems.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message;
-            state.data = [];
-        })
         builder.addCase(getItemById.pending, (state) => {
             state.isLoading = true;
         })
@@ -40,4 +27,4 @@ const itemsSlice = createSlice({
     }
 });
 
-export default itemsSlice.reducer;
+export default itemSlice.reducer;

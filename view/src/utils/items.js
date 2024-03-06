@@ -5,3 +5,9 @@ export const getItemsAPI = async () => {
 
   return data;
 };
+
+export const getItemByIdAPI = async (id) => {
+    const { data } = await axios.get(`http://localhost:8000/items/${id}`);
+  
+    return data;
+  };
