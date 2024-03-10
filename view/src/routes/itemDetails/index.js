@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getItemById } from "../../store/items/itemsActions";
+import { getItemById } from '../../store/item/itemActions';
+import ItemQuantityInput from '../../components/itemQuantityInput';
 
 const ItemDetails = () => {
 
@@ -9,7 +10,7 @@ const ItemDetails = () => {
 
     const { itemId } = useParams();
     const dispatch = useDispatch();
-    const itemsDetails = useSelector((state) => state.items);
+    const itemDetails = useSelector((state) => state.item);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -20,18 +21,23 @@ const ItemDetails = () => {
 
     return (
         <div>
-            {itemsDetails.isLoading || !itemsDetails.data ? (
+            {itemDetails.isLoading || !itemDetails.data ? (
                 <h3>Loading...</h3>
             ) : (
                 <div>
                     <div>
-                        <h2>{itemsDetails.data[0].name}</h2>
+                        <div>
+                            <h2>{itemDetails.data.name}</h2>
+                        </div>
+                        <div>
+                            <img src={itemDetails.data.item_image_url} alt={itemDetails.data.name} />
+                        </div>
+                        <div>
+                            <h3>{itemDetails.data.description}</h3>
+                        </div>
                     </div>
                     <div>
-                        <img src={itemsDetails.data[0].item_image_url} alt={itemsDetails.data[0].name} />
-                    </div>
-                    <div>
-                        <h3>{itemsDetails.data[0].description}</h3>
+                        <ItemQuantityInput itemId={itemId}/>
                     </div>
                 </div>
             )}

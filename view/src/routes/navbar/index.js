@@ -29,13 +29,20 @@ const NavBar = () => {
             Login
           </NavLink> 
           }
+
           { /* Sign Up NavLink */}
           { auth.isAuthenticated ? null :
           <NavLink to="/auth/signup" className="navbar-link">
             Sign Up
           </NavLink>
           }
-          
+
+          {/* Sign Out Button */}
+          { auth.isAuthenticated ? <NavLink to={`/cart/${auth.userData.id}`} className="navbar-link">
+            Cart
+          </NavLink> 
+          : null }
+
           {/* Sign Out Button */}
           { auth.isAuthenticated ? <Logout /> : null }
         </div>

@@ -17,7 +17,7 @@ const signup = async (req, res) => {
         const result = pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3)', [username, hashedPassword, email]);
 
         console.log('User signed up successfully');
-        res.status(201).json({ message: 'User signed up successfully' });
+        return res.status(201).json({ message: 'User signed up successfully' });
     
     } catch (err) {
         console.error('Error signing up:', err); // Logging the error

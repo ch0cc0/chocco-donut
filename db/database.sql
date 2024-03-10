@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS item_images (
     id SERIAL PRIMARY KEY,
     item_id INTEGER NOT NULL,
     item_image_url TEXT,
+    item_thumbnail_url TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (item_id) REFERENCES items(id)
 );

@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { signup } = require('../../controllers/auth.js');
-const { checkIfNotAuthenticated, checkIfAuthenticated } = require('../../utils/helper_funcs.js');
+const { checkIfNotAuthenticated } = require('../../utils/helper_funcs.js');
 
 module.exports = (app, passport) => {
 

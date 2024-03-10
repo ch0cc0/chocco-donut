@@ -11,7 +11,7 @@ const ItemDisplayBox = (props) => {
                 <h3>{data.name}</h3>
             </div>
             <div>
-                <img src={data.item_image_url}/>
+                <img src={data.item_image_url} alt={data.description}/>
             </div>
             <div>
                 <h4>{data.description}</h4>

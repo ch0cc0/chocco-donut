@@ -9,15 +9,15 @@ const getItems = async (req, res) => {
 
         if (items.rows.length > 0) {
             console.log('Items retrieved successfully')
-            res.status(200).send(items.rows);
+            return res.status(200).send(items.rows);
         } else {
             console.log('Error no items available')
-            res.status(404).json({message: 'Error no items available'});;
+            return res.status(404).json({message: 'Error no items available'});;
         }
     
     } catch (err) {
         console.error('Error retreiving items:', err); // Logging the error
-        res.status(500).json({ message: 'An error occurred. Could not retrieve items' });
+        return res.status(500).json({ message: 'An error occurred. Could not retrieve items' });
     }
 };
 
@@ -32,15 +32,15 @@ const getItemById = async (req, res) => {
 
         if (items.rows.length > 0) {
             console.log('Items retrieved successfully')
-            res.status(200).send(items.rows[0]);
+            return res.status(200).send(items.rows[0]);
         } else {
             console.log('Error no item found')
-            res.status(404).json({message: 'Error no item found'});;
+            return res.status(404).json({message: 'Error no item found'});;
         }
     
     } catch (err) {
         console.error('Error retreiving item:', err); // Logging the error
-        res.status(500).json({ message: 'An error occurred. Could not retrieve item' });
+        return res.status(500).json({ message: 'An error occurred. Could not retrieve item' });
     }
 };
 

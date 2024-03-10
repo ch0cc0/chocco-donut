@@ -3,6 +3,7 @@ import NavBar from "./routes/navbar";
 import Home from "./routes/home";
 import Login from "./routes/login";
 import ItemDetails from "./routes/itemDetails";
+import Cart from "./routes/cart";
 import Signup from "./routes/signup";
 import NotFound from "./routes/not_found";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/donuts/:itemId" element={<ItemDetails />} />
+        <Route path="/cart/:id" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </QueryClientProvider>

@@ -17,12 +17,12 @@ const itemSlice = createSlice({
         .addCase(getItemById.fulfilled, (state, action) => {
             state.isLoading = false;
             state.error = null;
-            state.data = [action.payload];
+            state.data = action.payload;
         })
         .addCase(getItemById.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error.message;
-            state.data = [];
+            state.data = {};
         })
     }
 });
