@@ -4,10 +4,10 @@ const findOrCreateCart = async (userId) => {
     try {
         console.log('Finding Cart');
 
-        const cart = await pool.query('SELECT carts_items.* FROM carts_items JOIN carts ON carts_items.cart_id = carts.id WHERE carts.user_id = $1;', [userId]);
+        const cart = await pool.query('SELECT * FROM carts WHERE user_id = $1;', [userId]);
         let cartId;
         if (cart.rows.length > 0) {
-            cartId = cart.rows[0].cart_id;
+            cartId = cart.rows[0].id;
             console.log('Cart retrieved');
             return cartId;
         } else {
@@ -15,7 +15,7 @@ const findOrCreateCart = async (userId) => {
             const newCartInsert = await pool.query('INSERT INTO carts (user_id) VALUES ($1) RETURNING *', [userId]);
             if (newCartInsert.rows.length > 0) {
                 console.log('Cart created successfully');
-                cartId = newCartInsert.rows[0].cart_id;
+                cartId = newCartInsert.rows[0].id;  
                 console.log(cartId);
                 return cartId;
             } else {
@@ -33,8 +33,9 @@ const getCart = async (req, res) => {
 
     console.log('Retrieving Cart'); // Logging request
     console.log(req.params);
+    console.log(req.session);
+    const userId = req.params.userId;
 
-    const userId = req.params.userId;;
 
     if (!userId) {
         console.log('No user id');
@@ -48,7 +49,7 @@ const getCart = async (req, res) => {
         if (cartId) {
             console.log('Cart retrieved');
             console.log(cartId);
-            const cart = await pool.query('SELECT items.*, item_images.item_thumbnail_url, carts_items.quantity FROM carts_items JOIN items ON carts_items.item_id = items.id JOIN carts ON carts_items.cart_id = carts.id LEFT JOIN item_images ON items.id = item_images.item_id WHERE carts.user_id = $1;', [userId]);
+            const cart = await pool.query('SELECT items.*, item_images.item_thumbnail_url, carts_items.quantity FROM carts_items JOIN items ON carts_items.item_id = items.id JOIN carts ON carts_items.cart_id = carts.id LEFT JOIN item_images ON items.id = item_images.item_id WHERE carts.user_id = $1', [userId]);
             if (cart.rows.length > 0) {
                 console.log('Cart retrieved');
                 return res.status(200).send(cart.rows);

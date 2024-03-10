@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCart } from "../../store/cart/cartActions";
-import CartItemBox from '../../components/cartItemBox';
-import Checkout from '../../components/checkout';
 import { useNavigate } from 'react-router-dom';
+import OrderItemBox from '../../components/orderItemBox';
 
-const Cart = () => {
+const Orders = () => {
     const auth = useSelector((state) => state.auth);
-    const cart = useSelector((state) => state.cart);
+    const orders = useSelector((state) => state.orders);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -21,26 +19,25 @@ const Cart = () => {
 
         const fetchCart = async () => {
             console.log(userId);
-            dispatch(getCart(userId));
+            dispatch();
         };
 
         fetchCart();
         
     }, [auth.isAuthenticated, navigate, dispatch]);
     
-    console.log(cart.data);
+    console.log();
     return (
         <div>
-            {cart.isLoading ? (
+            {orders.isLoading ? (
                 <h3>Loading...</h3>
             ) : (
-                cart.data.map((cartItem) =>
-                    <CartItemBox data={cartItem} key={cartItem.id} />
+                orders.data.map((orderItem) =>
+                    <OrderItemBox data={orderItem} key={orderItem.id} />
                 )
             )}
-            <Checkout />
         </div>
     );
 };
 
-export default Cart;
+export default Orders;

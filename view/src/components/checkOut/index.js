@@ -1,19 +1,27 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkoutCart } from '../../store/checkout/checkoutActions';
 
-const CheckOut = () => {
-    const navigate = useNavigate();
+const Checkout = () => {
+    const auth = useSelector((state) => state.auth);
+    const checkout = useSelector((state) => state.checkout);
+    const dispatch = useDispatch();
 
-    const handleClick = () => {
-
+    const handleClick = async () => {
+        const userId = auth.userData.id;
+        console.log(userId);
+        await dispatch(checkoutCart({userId}));
+        if (checkout.success) {
+            window.location.href = checkout.url.url;
+        }
     };
     
 
     return (
         <button onClick={handleClick}>
-            Check Out
+            Checkout
         </button>
     );
 };
 
-export default CheckOut;
+export default Checkout;

@@ -11,7 +11,7 @@ module.exports = (app) => {
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: true, maxAge: 24 * 60 * 60 }
+        cookie: { secure: true, maxAge: 24 * 60 * 60 * 1000 }
     }));
 
     app.use(morgan('tiny'));
@@ -19,14 +19,7 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
 
-    app.use(cors({
-        origin: 'http://localhost:3000',
-        methods: 'GET,POST,PUT,DELETE,OPTIONS',
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true,
-        optionSuccessStatus:200,
-        preflightContinue: true,
-    }));
+    app.use(cors());
 
     return app;
 }
