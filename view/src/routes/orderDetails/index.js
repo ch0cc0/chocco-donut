@@ -17,18 +17,18 @@ const Orders = () => {
             navigate('/auth/login');
         }
 
-        const fetchCart = async () => {
+        const fetchOrderDetails = async () => {
             console.log(userId);
             dispatch();
         };
 
-        fetchCart();
+        fetchOrderDetails();
         
     }, [auth.isAuthenticated, navigate, dispatch]);
     
     console.log();
     return (
-        <div>
+        /*<div>
             {orders.isLoading ? (
                 <h3>Loading...</h3>
             ) : (
@@ -36,7 +36,8 @@ const Orders = () => {
                     <OrderItemBox data={orderItem} key={orderItem.id} />
                 )
             )}
-        </div>
+        </div>*/
+        <div>Order Details</div>
     );
 };
 

@@ -5,12 +5,12 @@ const { createOrder, getOrders, getOrderDetails } = require('../../controllers/o
 
 module.exports = (app) => {
 
-    app.use('/orders/:userId', router);
-
-    router.get('/', getOrders);
+    app.use('/orders', router);
 
     router.post('/', createOrder);
 
-    router.get('/:orderId', getOrderDetails);
+    router.get('/:userId', getOrders);    
+
+    router.get('/:userId/:orderId', getOrderDetails);
 
 };

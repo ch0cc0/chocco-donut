@@ -16,7 +16,11 @@ const checkIfAuthenticated = (req, res, next) => {
         return next();
     }
 
-    res.redirect('/login');
+    else {
+        // If user is not authenticated, return a 401 Unauthorized status
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+    
 };
 
 const checkIfNotAuthenticated = (req, res, next) => {

@@ -17,12 +17,12 @@ const Orders = () => {
             navigate('/auth/login');
         }
 
-        const fetchCart = async () => {
+        const fetchOrders = async () => {
             console.log(userId);
             dispatch();
         };
 
-        fetchCart();
+        fetchOrders();
         
     }, [auth.isAuthenticated, navigate, dispatch]);
     

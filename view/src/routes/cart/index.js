@@ -38,7 +38,7 @@ const Cart = () => {
                     <CartItemBox data={cartItem} key={cartItem.id} />
                 )
             )}
-            <Checkout />
+            {cart.data.length > 0 && <Checkout />}
         </div>
     );
 };

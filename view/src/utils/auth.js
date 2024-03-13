@@ -1,4 +1,10 @@
-import axios from "axios";
+import axios from './axios-config';
+
+export const isAuthenticatedAPI = async () => {
+  const { data } = await axios.get('http://localhost:8000/auth/login');
+
+  return data;
+}
 
 export const signupAPI = async (signupData) => {
   const { data } = await axios.post('http://localhost:8000/auth/signup', signupData);

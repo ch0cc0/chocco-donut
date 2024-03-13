@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { signup } = require('../../controllers/auth.js');
-const { checkIfNotAuthenticated } = require('../../utils/helper_funcs.js');
+const { checkIfNotAuthenticated, checkIfAuthenticated } = require('../../utils/helper_funcs.js');
 
 module.exports = (app, passport) => {
 
@@ -21,8 +21,9 @@ module.exports = (app, passport) => {
         res.status(200).send(req.user);
     });
 
-    router.get('/login', (req, res) => {
-        res.redirect(`${process.env.CLIENT_URL}/auth/login`)
+    router.get('/login', checkIfAuthenticated, (req, res) => {
+        console.log(req.user)
+        res.status(200).send(req.user);
     });
 
     router.post('/logout', (req, res) => {

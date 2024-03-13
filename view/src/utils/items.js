@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from './axios-config';
 
 export const getItemsAPI = async () => {
   const { data } = await axios.get('http://localhost:8000/items');

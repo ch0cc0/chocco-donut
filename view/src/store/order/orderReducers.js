@@ -1,33 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { checkoutCart } from "./checkoutActions";
+import { getOrderDetails } from "./orderActions";
 
 const initialState = {
     isLoading: false,
-    url: null,
+    data: [],
     error: null,
     success: null,
   };
 
-const checkoutSlice = createSlice({
-    name: 'checkout',
+const orderSlice = createSlice({
+    name: 'order',
     initialState,
     extraReducers: builder => {
-        builder.addCase(checkoutCart.pending, (state) => {
+        builder.addCase(getOrderDetails.pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(checkoutCart.fulfilled, (state, action) => {
+        .addCase(getOrderDetails.fulfilled, (state, action) => {
             state.isLoading = false;
             state.error = null;
+            state.data = action.payload;
             state.success = true;
-            state.url = action.payload.url;
         })
-        .addCase(checkoutCart.rejected, (state, action) => {
+        .addCase(getOrderDetails.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error.message;
+            state.data = [];
             state.success = false;
-            state.url = null;
         })
     }
 });
 
-export default checkoutSlice.reducer;
+export default orderSlice.reducer;

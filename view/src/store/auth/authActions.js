@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loginAPI, signupAPI, logoutAPI } from '../../utils/auth';
+import { loginAPI, signupAPI, logoutAPI, isAuthenticatedAPI } from '../../utils/auth';
+
+export const isAuthenticated = createAsyncThunk('auth/checkAuth', async () => {
+    return isAuthenticatedAPI();
+});
 
 export const loginUser = createAsyncThunk('auth/login', async (loginData) => {
     return loginAPI(loginData);
