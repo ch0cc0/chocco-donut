@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import "./styling.css";
 import Logout from "../logout";
 import { useSelector } from "react-redux";
 
@@ -37,9 +36,21 @@ const NavBar = () => {
           </NavLink>
           }
 
-          {/* Sign Out Button */}
+          {/* User Profile Button */}
+          { auth.isAuthenticated ? <NavLink to={`/profile/${auth.userData.id}`} className="navbar-link">
+            Profile
+          </NavLink> 
+          : null }
+
+          {/* Cart Button */}
           { auth.isAuthenticated ? <NavLink to={`/cart/${auth.userData.id}`} className="navbar-link">
             Cart
+          </NavLink> 
+          : null }
+
+          {/* Orders Button */}
+          { auth.isAuthenticated ? <NavLink to={`/orders/${auth.userData.id}`} className="navbar-link">
+            Orders
           </NavLink> 
           : null }
 

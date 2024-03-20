@@ -55,13 +55,16 @@ const getOrderDetailsAndItems = `
     SELECT 
         items.*,
         orders_items.quantity,
-        item_images.item_thumbnail_url
+        item_images.item_thumbnail_url,
+        orders.total_cost AS order_total_cost
     FROM 
         orders_items
     JOIN 
         items ON orders_items.item_id = items.id
     JOIN 
         item_images ON items.id = item_images.item_id
+    JOIN 
+        orders ON orders_items.order_id = orders.id
     WHERE 
         orders_items.order_id = $1;
 `;

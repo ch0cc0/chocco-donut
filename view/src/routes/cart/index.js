@@ -34,11 +34,19 @@ const Cart = () => {
             {cart.isLoading ? (
                 <h3>Loading...</h3>
             ) : (
-                cart.data.map((cartItem) =>
-                    <CartItemBox data={cartItem} key={cartItem.id} />
-                )
+                <>
+                    {cart.data.length > 0 ? (
+                        cart.data.map((cartItem) =>
+                            <CartItemBox data={cartItem} key={cartItem.id} />
+                        )
+                    ) : (
+                        <div>
+                            <h3>No Items In Cart</h3>
+                        </div>
+                    )}
+                    {cart.data.length > 0 && <Checkout />}
+                </>
             )}
-            {cart.data.length > 0 && <Checkout />}
         </div>
     );
 };

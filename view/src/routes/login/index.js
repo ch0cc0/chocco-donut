@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/auth/authActions";
 import GoogleSignUp from "../googleSignUp";
+import validator from 'validator';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,13 +29,16 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const loginData = {
-    username,
-    password,
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const sanitizedUsername = validator.escape(validator.trim(username));
+    const sanitizedPassword = validator.escape(validator.trim(password));
+
+    const loginData = {
+      username: sanitizedUsername,
+      password: sanitizedPassword,
+    };
 
     console.log(`Attempting to Log in as ${loginData.username}`);
 

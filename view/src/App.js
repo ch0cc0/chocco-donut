@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { isAuthenticated } from "./store/auth/authActions";
 import { useEffect } from "react";
+import UserProfile from "./routes/userProfile";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/donuts/:itemId" element={<ItemDetails />} />
         <Route path="/cart/:userId" element={<Cart />} />
+        <Route path="/profile/:userId" element={<UserProfile />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/orders/:userId" element={<Orders />} />
         <Route path="/orders/:userId/:orderId" element={<OrderDetails />} />

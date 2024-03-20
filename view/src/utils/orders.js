@@ -12,8 +12,9 @@ export const createOrderAPI = async (userId) => {
     return data;
 };
 
-export const getOrderDetailsAPI = async (userId, orderId) => {
-    const { data } = await axios.get(`http://localhost:8000/orders/${userId}/${orderId}`);
+export const getOrderDetailsAPI = async (order) => {
+    const {userId, orderId} = order;
+    const { data } = await axios.get(`http://localhost:8000/orders/${userId}/${orderId}/`);
   
     return data;
 };
