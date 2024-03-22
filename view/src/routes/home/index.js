@@ -1,30 +1,23 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getItems } from "../../store/items/itemsActions";
-import ItemDisplayBox from '../../components/itemDisplayBox';
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { ContactShadows, Environment, OrbitControls, useFBX } from "@react-three/drei";
+import './home.css';
+
+const Donut = () => {
+    const fbx = useFBX('./donut/pink_donut.fbx')
+    return <primitive object={fbx} scale={0.37}/>
+}
 
 const Home = () => {
-    const items = useSelector((state) => state.items);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        const fetchItems = async () => {
-            await dispatch(getItems());
-        };
-        fetchItems();
-    }, [dispatch]);
-    
-    console.log(items.data);
     return (
-        <div>
-            {items.isLoading ? (
-                <h3>Loading...</h3>
-            ) : (
-                items.data.map((item) =>
-                    <ItemDisplayBox data={item} key={item.id} />
-                )
-            )}
-        </div>
+        <Canvas>
+            <Suspense fallback={null}>
+                <ambientLight intensity={0.5}/>
+                <Donut />
+                <OrbitControls enableZoom={false}/>
+                <Environment preset='sunset' />
+            </Suspense>
+        </Canvas>
     );
 };
 

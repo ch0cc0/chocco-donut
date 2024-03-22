@@ -6,60 +6,71 @@ const NavBar = () => {
 
   const auth = useSelector((state) => state.auth);
 
-    return (
-      <nav className="navbar">
-        <div className="navbar-left">
-          {/* Logo */}
-          <NavLink to="/" className="navbar-logo">
-            Logo Here
-          </NavLink>
-          {/* Search Bar */}
-          <input
-            type="text"
-            id="search-bar"
-            placeholder="Search"
-            className="navbar-search"
-          />
-        </div>
-        <div className="navbar-right">
-          {/* Login NavLink */}
-          { auth.isAuthenticated ? null : 
-          <NavLink to="/auth/login" className="navbar-link">
+  return (
+    <nav className="bg-black">
+      <div>
+        {/* Logo */}
+        <NavLink to="/">
+          Logo Here
+        </NavLink>
+        {/* Search Bar */}
+        <input
+          type="text"
+          id="search-bar"
+          placeholder="Search"
+        />
+      </div>
+      <div>
+        {/* Login NavLink */}
+        {!auth.isAuthenticated && (
+          <NavLink to="/auth/login" >
             Login
-          </NavLink> 
-          }
-
-          { /* Sign Up NavLink */}
-          { auth.isAuthenticated ? null :
-          <NavLink to="/auth/signup" className="navbar-link">
+          </NavLink>
+        )}
+        {/* Sign Up NavLink */}
+        {!auth.isAuthenticated && (
+          <NavLink to="/auth/signup">
             Sign Up
           </NavLink>
-          }
-
-          {/* User Profile Button */}
-          { auth.isAuthenticated ? <NavLink to={`/profile/${auth.userData.id}`} className="navbar-link">
+        )}
+        {/* Orders Button */}
+        {(
+          <NavLink
+            to={`/products`}
+          >
+            Donuts
+          </NavLink>
+        )}
+        {/* User Profile Button */}
+        {auth.isAuthenticated && (
+          <NavLink
+            to={`/profile/${auth.userData.id}`}
+          >
             Profile
-          </NavLink> 
-          : null }
-
-          {/* Cart Button */}
-          { auth.isAuthenticated ? <NavLink to={`/cart/${auth.userData.id}`} className="navbar-link">
+          </NavLink>
+        )}
+        {/* Cart Button */}
+        {auth.isAuthenticated && (
+          <NavLink
+            to={`/cart/${auth.userData.id}`}
+          >
             Cart
-          </NavLink> 
-          : null }
-
-          {/* Orders Button */}
-          { auth.isAuthenticated ? <NavLink to={`/orders/${auth.userData.id}`} className="navbar-link">
+          </NavLink>
+        )}
+        {/* Orders Button */}
+        {auth.isAuthenticated && (
+          <NavLink
+            to={`/orders/${auth.userData.id}`}
+          >
             Orders
-          </NavLink> 
-          : null }
-
-          {/* Sign Out Button */}
-          { auth.isAuthenticated ? <Logout /> : null }
-        </div>
-      </nav>
-    );
-  };
+          </NavLink>
+        )}
+        {/* Sign Out Button */}
+        {auth.isAuthenticated && <Logout />}
+      </div>
+    </nav>
+  );
+};
   
 
 export default NavBar;
