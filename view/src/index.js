@@ -10,12 +10,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux'
 import rootReducer from './store/rootReducer.js';
 
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
+if (process.env.NODE_ENV === 'production') disableReactDevTools();
 
 const logger = createLogger();
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  devTools: false,
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
