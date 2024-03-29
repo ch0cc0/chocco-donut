@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from "../../store/cart/cartActions";
 import CartItemBox from '../../components/cartItemBox';
-import Checkout from '../../components/checkout';
+import Checkout from '../../components/checkout/index.js';
 import { useNavigate } from 'react-router-dom';
 import { Container, Grid, Typography } from '@mui/material';
 
