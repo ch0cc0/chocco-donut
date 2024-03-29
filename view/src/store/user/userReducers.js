@@ -1,32 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  } from "./userActions";
+import { updateUser, getUserInfo } from "./userActions";
 
 const initialState = {
     isLoading: false,
-    isAuthenticated: false,
-    loginError: null,
-    signupError: null,
-    userData: {}
+    success: null,
+    error: null,
+    data: {}
   };
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     extraReducers: builder => {
-        builder.addCase(loginUser.pending, (state) => {
+        builder.addCase(updateUser.pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(loginUser.fulfilled, (state, action) => {
+        .addCase(updateUser.fulfilled, (state) => {
             state.isLoading = false;
-            state.isAuthenticated = true;
-            state.loginError = null;
-            state.userData = action.payload;
+            state.success = true;
+            state.error = false;
         })
-        .addCase(loginUser.rejected, (state, action) => {
+        .addCase(updateUser.rejected, (state, action) => {
             state.isLoading = false;
-            state.isAuthenticated = false;
-            state.loginError = action.error.message;
-            state.userData = {};
+            state.success = false;
+            state.error = action.error.message;
+        })
+        builder.addCase(getUserInfo.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getUserInfo.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.success = true;
+            state.error = false;
+            state.data = action.payload;
+        })
+        .addCase(getUserInfo.rejected, (state, action) => {
+            state.isLoading = false;
+            state.success = false;
+            state.error = action.error.message;
         })
     }
 });

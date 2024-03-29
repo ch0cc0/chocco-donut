@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import OrderItemBox from '../../components/orderItemBox';
 import { getOrderDetails } from '../../store/order/orderActions'
+import { Container, Typography } from '@mui/material';
 
 const Orders = () => {
     const auth = useSelector((state) => state.auth);
@@ -37,8 +38,8 @@ const Orders = () => {
     
     
     return (
-        <div>
-            <div>Order Details</div>
+        <Container sx={{ mt: 2}}>
+            <Typography variant='h4'>Order Details</Typography>
             <div>
                 {order.isLoading && !order.data ? (
                     <h3>Loading...</h3>
@@ -47,16 +48,18 @@ const Orders = () => {
                 ) : (
                     <>
                         {order.data.map((orderItem) =>
-                            <OrderItemBox data={orderItem} key={orderItem.id} />
+                            <Container>
+                                <OrderItemBox data={orderItem} key={orderItem.id} />
+                            </Container>
                         )}
-                        <div>
+                        <Typography variant='h5'>
                             Order Total Cost: {order.data[0].order_total_cost}
-                        </div>
+                        </Typography>
                     </>
                     )
                 }
             </div>
-        </div>
+        </Container>
     );
 };
 

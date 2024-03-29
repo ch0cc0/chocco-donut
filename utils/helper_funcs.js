@@ -13,6 +13,8 @@ const compare_password = (password, hashedPassword) => {
 
 const checkIfAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
+        console.log('Authenticated')
+        console.log(req.session)
         return next();
     }
 

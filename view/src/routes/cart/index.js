@@ -4,6 +4,7 @@ import { getCart } from "../../store/cart/cartActions";
 import CartItemBox from '../../components/cartItemBox';
 import Checkout from '../../components/checkout';
 import { useNavigate } from 'react-router-dom';
+import { Container, Grid, Typography } from '@mui/material';
 
 const Cart = () => {
     const auth = useSelector((state) => state.auth);
@@ -17,37 +18,38 @@ const Cart = () => {
     useEffect(() => {
         if (!auth.isAuthenticated) {
             navigate('/auth/login');
+        } else {
+            const fetchCart = async () => {
+                console.log(userId);
+                dispatch(getCart(userId));
+            };
+    
+            fetchCart();    
         }
-
-        const fetchCart = async () => {
-            console.log(userId);
-            dispatch(getCart(userId));
-        };
-
-        fetchCart();
-        
     }, [auth.isAuthenticated, navigate, dispatch]);
     
     console.log(cart.data);
     return (
-        <div>
+        <Container sx={{mt: 2}}>
             {cart.isLoading ? (
-                <h3>Loading...</h3>
+                <Typography component="div" variant="h3">
+                    Loading...
+                </Typography>
             ) : (
                 <>
+                <Grid container spacing={2} >
                     {cart.data.length > 0 ? (
                         cart.data.map((cartItem) =>
                             <CartItemBox data={cartItem} key={cartItem.id} />
                         )
                     ) : (
-                        <div>
-                            <h3>No Items In Cart</h3>
-                        </div>
+                        <Typography component="div" variant="h3" >Cart Empty</Typography>
                     )}
-                    {cart.data.length > 0 && <Checkout />}
+                </Grid>
+                {cart.data.length > 0 && <Checkout />}
                 </>
             )}
-        </div>
+        </Container>
     );
 };
 

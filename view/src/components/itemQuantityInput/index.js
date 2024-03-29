@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/cart/cartActions';
 import { useNavigate } from 'react-router-dom';
+import { Box, Button, ButtonGroup, Grid, Input, Typography } from '@mui/material';
 
 const ItemQuantityInput = (props) => {
     const auth = useSelector((state) => state.auth);
@@ -41,12 +42,30 @@ const ItemQuantityInput = (props) => {
     };
 
     return (
-        <div>
-            <button onClick={handleDecrement}>-</button>
-            <input type="number" value={quantity} readOnly />
-            <button onClick={handleIncrement}>+</button>
-            <button onClick={handleAddToCart}>Add to Cart</button>
-        </div>
+        <Grid container>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center',}}>
+                <ButtonGroup variant="contained" aria-label="Quantity selector" sx={{ mt: 3 }}>
+                    <Button onClick={handleDecrement} color="secondary">
+                        <Typography variant="h5">
+                            -
+                        </Typography>
+                    </Button>
+                    <Input type="number" value={quantity} readOnly inputProps={{ style: { textAlign: 'center' } }} />
+                    <Button onClick={handleIncrement} color="secondary">
+                        <Typography variant="h5">
+                            +
+                        </Typography>
+                    </Button>
+                </ButtonGroup>
+            </Grid>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 2}} >
+                <Button variant="contained" onClick={handleAddToCart}>
+                    <Typography variant="h5">
+                        Add to Cart
+                    </Typography>
+                </Button>
+            </Grid>
+        </Grid>
     );
 };
 

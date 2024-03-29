@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkPurchaseSuccess } from '../../store/stripe/stripeActions';
 import { createOrder } from '../../store/orders/ordersActions';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 const SuccessPage = () => {
     const auth = useSelector((state) => state.auth);
@@ -39,16 +40,18 @@ const SuccessPage = () => {
     if (stripe.isLoading) return <h3>Loading...</h3>
 
     return (
-        <div>
+        <Box sx={{mt: 2}}>
             {checkout.error ? (
                 <h3>Failed to place order: {checkout.error}</h3>
             ) : (
                 <div>
-                    <h2>Order Placed!</h2>
-                    <Link to={`/orders/${auth.userData.id}`}>View Orders</Link>
+                    <Typography>Order Placed!</Typography>
+                    <Button variant="text" onClick={() => {
+                        navigate('/orders/')}}>
+                    View Orders</Button>
                 </div>
             )}
-        </div>
+        </Box>
     );
 };
 

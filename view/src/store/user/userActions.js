@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {  } from '../../utils/user';
+import { updateUserAPI, getUserInfoAPI } from '../../utils/user';
 
-export const  = createAsyncThunk('user/updateUser', async () => {
-    return ();
+export const updateUser = createAsyncThunk('user/updateUser', async (userInfo) => {
+    return updateUserAPI(userInfo);
+});
+
+export const getUserInfo = createAsyncThunk('user/getUser', async () => {
+    return getUserInfoAPI();
 });

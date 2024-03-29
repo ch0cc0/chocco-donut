@@ -7,6 +7,7 @@ import checkoutReducer from './checkout/checkoutReducers';
 import ordersReducer from './orders/ordersReducers';
 import orderReducer from './order/orderReducers';
 import stripeReducer from './stripe/stripeReducers';
+import userReducer from './user/userReducers';
 
 export default combineReducers({
   auth: authReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   orders: ordersReducer,
   order: orderReducer,
   stripe: stripeReducer,
+  user: userReducer,
 });

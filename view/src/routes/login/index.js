@@ -5,6 +5,21 @@ import { loginUser } from "../../store/auth/authActions";
 import GoogleSignUp from "../googleSignUp";
 import validator from 'validator';
 
+import {
+  Avatar,
+  Button,
+  Container,
+  CssBaseline,
+  FormControlLabel,
+  Grid,
+  Link,
+  TextField,
+  Typography
+} from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,44 +61,79 @@ const Login = () => {
   };
 
   return (
-    <div>
-        <div>
-          <h2>Log In</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                autoComplete="username"
-                value={username}
-                onChange={handleUsernameChange}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-              />
-            </div>
-            {auth.isLoading && <div>Loading...</div>}
-            {auth.loginError && !auth.isLoading ? <div style={{ color: 'red' }}>Failed to Login! Error: {auth.loginError}</div> : null }
-            <button type="submit">Log In</button>
-          </form>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div
+        style={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: '#e58300' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Log in
+        </Typography>
+        <form onSubmit={handleSubmit} style={{ width: '100%', marginTop: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={handleUsernameChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          {auth.isLoading && <div>Loading...</div>}
+          {auth.loginError && !auth.isLoading ? <div style={{ color: 'red' }}>Failed to Login! Error: {auth.loginError}</div> : null }
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href="/auth/signup" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+          <Grid container sx={{ mt: 3 }}>
+            <Grid item>
+              <GoogleSignUp />
+            </Grid>
+          </Grid>
+        </form>
       </div>
-      <h3>Or</h3>
-      <div>
-        <GoogleSignUp />
-      </div>
-    </div>
-
+    </Container>
   );
+
 };
 
 export default Login;

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkoutCart } from '../../store/checkout/checkoutActions';
+import { Box, Button } from '@mui/material';
 
 const Checkout = () => {
     const auth = useSelector((state) => state.auth);
@@ -22,9 +23,11 @@ const Checkout = () => {
     
 
     return (
-        <button onClick={handleClick}>
-            Checkout
-        </button>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+            <Button variant="contained" onClick={handleClick}>
+                Checkout
+            </Button>
+        </Box>
     );
 };
 

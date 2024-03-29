@@ -1,22 +1,36 @@
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ItemDisplayBox = (props) => {
+    const navigate = useNavigate();
+
+    const navigateToDonut = () => {
+        navigate(`/donuts/${data.id}`);
+    }
 
     const { data } = props;
 
     return (
-        <Link to={`/donuts/${data.id}`} className='item-display-box'>
-            <div>
-                <h3>{data.name}</h3>
-            </div>
-            <div>
-                <img src={data.item_image_url} alt={data.description}/>
-            </div>
-            <div>
-                <h4>{data.description}</h4>
-            </div>
-        </Link>
+        <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea onClick={navigateToDonut}>
+                <CardMedia
+                    component="img"
+                    height="180"
+                    image={data.item_image_url}
+                    alt={data.name}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {data.name}
+                    </Typography>
+                    <Typography variant="body2">
+                        {data.description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+
     );
 };
 

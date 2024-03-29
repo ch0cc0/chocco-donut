@@ -27,11 +27,12 @@ module.exports = (app, passport) => {
     });
 
     router.post('/logout', (req, res) => {
+        console.log(req.user)
+        console.log(req.session)
         req.logOut(function(err) {
             if (err) { console.log(err); }
           });
-
-        // redirect to homepage
+          
         res.redirect('/');
     });
 
