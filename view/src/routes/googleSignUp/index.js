@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import GoogleSignIn  from 'react-google-button';
-import { useNavigate } from 'react-router-dom';
 import { googleSignInAPI } from "../../utils/auth";
 
 const GoogleSignUp = () => {
 
-    const navigate = useNavigate();
     const queryClient = useQueryClient();
   
     const mutation = useMutation({

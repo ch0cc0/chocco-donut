@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/cart/cartActions';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, ButtonGroup, Grid, Input, Typography } from '@mui/material';
+import { Button, ButtonGroup, Grid, Input, Typography } from '@mui/material';
 
 const ItemQuantityInput = (props) => {
     const auth = useSelector((state) => state.auth);

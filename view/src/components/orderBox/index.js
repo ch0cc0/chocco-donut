@@ -1,13 +1,10 @@
 import { Box, Card, CardActionArea, CardMedia, Container, Typography } from '@mui/material';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 
 const OrderBox = (props) => {
     const theme = useTheme();
-
-    const auth = useSelector((state) => state.auth)
 
     const { data } = props;
     console.log(data);

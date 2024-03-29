@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkPurchaseSuccess } from '../../store/stripe/stripeActions';
 import { createOrder } from '../../store/orders/ordersActions';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 const SuccessPage = () => {
     const auth = useSelector((state) => state.auth);

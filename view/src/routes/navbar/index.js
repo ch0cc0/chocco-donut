@@ -15,7 +15,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/auth/authActions";
 
@@ -237,7 +237,7 @@ const NavBar = () => {
           </Box>
           {auth.isAuthenticated && (
           <>
-            <Box sx={{ display: 'flex', gap: 1, display: { xs: 'none', md: 'flex' }}}>
+            <Box sx={{ gap: 1, display: { xs: 'none', md: 'flex' }}}>
               <Tooltip title="Shopping Cart">
                 <Button
                     key="Cart"

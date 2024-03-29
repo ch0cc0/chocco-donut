@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import OrderBox from '../../components/orderBox';
 import { getOrders } from '../../store/orders/ordersActions'
-import { Container, Grid } from '@mui/material';
+import { Container } from '@mui/material';
 
 const Orders = () => {
     const auth = useSelector((state) => state.auth);
